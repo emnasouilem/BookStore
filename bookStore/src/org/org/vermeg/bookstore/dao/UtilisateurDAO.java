@@ -7,9 +7,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.vermeg.bookstore.model.Livre;
+import org.vermeg.bookstore.model.Utilisateur;
 
 @Repository
-public class LivreDAO {
+public class UtilisateurDAO {
+
 	
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -17,40 +19,40 @@ public class LivreDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
-	public List<Livre> getAllLivres() {
+	public List<Utilisateur> getAllUsers() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Livre> livreList = session.createQuery("from Livre").list();
+		List<Utilisateur> userList = session.createQuery("from Utilisateur").list();
 		
-		for (Livre l:livreList) {
-			System.out.println("##### livre numéro "+ "\t"+ l.getId() + "\t" + l.getReference()+ "\t" + l.getTitre() + "\t" + l.getDesignation() + "\t" + l.getReleaseDate() + "\t" + l.getPrixUnitaire());
+		for (Utilisateur u:userList) {
+			System.out.print(u.toString());
 		}
 		
-		return livreList;
+		return userList;
+	}
+	
+	public Utilisateur getUser(int id) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Utilisateur user = (Utilisateur) session.get(Utilisateur.class, new Integer(id));
+		return user;
 	}
 
-	public Livre getLivre(int id) {
+	public Utilisateur addUser(Utilisateur user) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Livre livre = (Livre) session.get(Livre.class, new Integer(id));
-		return livre;
+		session.persist(user);
+		return user;
 	}
 
-	public Livre addLivre(Livre livre) {
+	public void updateUser(Utilisateur user) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(livre);
-		return livre;
+		session.update(user);
 	}
 
-	public void updateLivre(Livre livre) {
+	public void deleteUser(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(livre);
-	}
-
-	public void deleteLivre(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Livre p = (Livre) session.load(Livre.class, new Integer(id));
+		Utilisateur p = (Utilisateur) session.load(Utilisateur.class, new Integer(id));
 		if (null != p) {
 			session.delete(p);
 		}
 	}	
 }
+

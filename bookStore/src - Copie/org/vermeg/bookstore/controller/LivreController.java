@@ -13,7 +13,7 @@ import org.vermeg.bookstore.model.Livre;
 import org.vermeg.bookstore.service.LivreService;
 
 @RestController
-@RequestMapping("/api/panier")
+@RequestMapping("/api/livre")
 public class LivreController {
 	
 	@Autowired

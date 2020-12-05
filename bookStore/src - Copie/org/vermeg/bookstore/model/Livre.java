@@ -80,6 +80,12 @@ public class Livre {
 		this.designation = designation;
 		this.prixUnitaire = prixUnitaire;
 	}
+	
+	public Livre (String title , int id ) {
+		
+		this.id=id ;
+		this.titre=title ;
+	}
 	public Livre() {
 	
 	}
